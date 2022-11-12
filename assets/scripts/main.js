@@ -69,6 +69,8 @@ async function getRecipes() {
   // A1. TODO - Check local storage to see if there are any recipes.
   //            If there are recipes, return them.
   var recipe_list = localStorage.getItem('recipes');
+  //console.log('recipe',recipe_list);
+  recipe_list = JSON.parse(recipe_list);
   if(recipe_list!=null){
     return recipe_list;
   }
@@ -97,13 +99,15 @@ async function getRecipes() {
         }
         async function f2(){
           var json_file = await f1().json();
+          //json_file = JSON.parse(json_file);
           return json_file;
         }
         if(i==RECIPE_URLS.length-1){
           saveRecipesToStorage(web_recipes);
           resolve(web_recipes);
         }
-        web_recipes.append(f2());
+        console.log(f2());
+        web_recipes.push(f2());
       }catch(error){
         console.error(error);
         reject(error);
@@ -152,6 +156,8 @@ function saveRecipesToStorage(recipes) {
  * @param {Array<Object>} recipes An array of recipes
  */
 function addRecipesToDocument(recipes) {
+  var type = typeof recipes;
+  console.log(type);
   if (!recipes) return;
   let main = document.querySelector('main');
   recipes.forEach((recipe) => {
