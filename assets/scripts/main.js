@@ -97,13 +97,14 @@ async function getRecipes() {
           let response = await fetch(RECIPE_URLS[i]);
           var json_file = await response.json();
           //json_file = JSON.parse(json_file);
+          console.log(json_file);
           return json_file;
         }
+        web_recipes.push(f1());
         if(i==RECIPE_URLS.length-1){
           saveRecipesToStorage(web_recipes);
           resolve(web_recipes);
         }
-        web_recipes.push(f1());
       }catch(error){
         console.error(error);
         reject(error);
@@ -152,8 +153,6 @@ function saveRecipesToStorage(recipes) {
  * @param {Array<Object>} recipes An array of recipes
  */
 function addRecipesToDocument(recipes) {
-  var type = typeof recipes;
-  console.log(type);
   if (!recipes) return;
   let main = document.querySelector('main');
   recipes.forEach((recipe) => {
