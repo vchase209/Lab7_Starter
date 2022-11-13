@@ -68,12 +68,12 @@ async function getRecipes() {
   // EXPOSE - START (All expose numbers start with A)
   // A1. TODO - Check local storage to see if there are any recipes.
   //            If there are recipes, return them.
-  var recipe_list = localStorage.getItem('recipes');
+  //var recipe_list = localStorage.getItem('recipes');
   //console.log('recipe',recipe_list);
-  recipe_list = JSON.parse(recipe_list);
-  if(recipe_list!=null){
-    return recipe_list;
-  }
+  //recipe_list = JSON.parse(recipe_list);
+  //if(recipe_list!=null){
+  //  return recipe_list;
+  //}
   /**************************/
   // The rest of this method will be concerned with requesting the recipes
   // from the network
@@ -94,11 +94,8 @@ async function getRecipes() {
     for(let i = 0; i < RECIPE_URLS.length; i++){
       try{
         async function f1(){
-          var response = await fetch(RECIPE_URLS[i]);
-          return response;
-        }
-        async function f2(){
-          var json_file = await f1().json();
+          let response = await fetch(RECIPE_URLS[i]);
+          var json_file = await response.json();
           //json_file = JSON.parse(json_file);
           return json_file;
         }
@@ -106,8 +103,7 @@ async function getRecipes() {
           saveRecipesToStorage(web_recipes);
           resolve(web_recipes);
         }
-        console.log(f2());
-        web_recipes.push(f2());
+        web_recipes.push(f1());
       }catch(error){
         console.error(error);
         reject(error);
