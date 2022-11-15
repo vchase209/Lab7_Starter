@@ -1,4 +1,4 @@
 # Lab 7 - Starter
 Vaughan Chase
 Kevin Zhang
-http://127.0.0.1:5500/
+https://vchase209.github.io/Lab7_Starter/
